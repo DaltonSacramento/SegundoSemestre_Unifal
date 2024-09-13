@@ -9,7 +9,8 @@ int main(){
     //Declaração do no cabeça e dos ponteiros posicionais
     //Começando com NULL
     no *ptlista=malloc(sizeof(no));
-    (*ptlista).prox=NULL;
+    (*ptlista).post=ptlista;
+    (*ptlista).ant=ptlista;
     //no *pont=NULL;
     
 
@@ -21,31 +22,32 @@ int main(){
         switch(x){
 
             case 1://Busca
-            /*
-                printf("\nChave: ");
-                scanf("%d", &x);
-                no *retorno=buscaenc(x,ptlista);
-                if(retorno==NULL){
-                    printf("\nNulo");
-                }
-                else{
-                    printf("\nRetorno: %d", (*retorno).chave);
-                }
-                break;*/
+                int k;
+                printf("\nChave para buscar: ");
+                scanf("%d", &k);
+                no *retornoBLDE=buscaListaDE(ptlista,k);
+                printf("\nRetorno: %d", (*retornoBLDE).chave);
+                break;
             
             case 2://Inserção
                 no *aux=malloc(sizeof(no));
                 printf("\nNova estrutura: ");
                 printf("\nChave: ");
                 scanf("%d", &(*aux).chave);
-                printf("\nRetorno: %d", insereenc(aux,ptlista));
+                no *retornoILDE=insereListaDE(ptlista,aux);
+                if(retornoILDE==NULL){
+                    printf("\nInserido");
+                }
+                else{
+                    printf("\nNao inserido, retorno posterior: %d", (*retornoILDE).chave);
+                }
                 break;
 
             case 3://Remoção
                 int w;
                 printf("\nChave para remover: ");
                 scanf("%d", &w);
-                no *retornera = removeenc(x,ptlista);
+                no *retornera = removeListaDE(ptlista,w);
                 if (retornera == NULL) {
                     printf("\nNulo");
                 } else {
@@ -56,7 +58,10 @@ int main(){
         }
     }while(x!=0);
 
-    escrita(ptlista);
+    for(no *i=(*ptlista).post;i!=ptlista;){
+        printf(" %d", (*i).chave);
+        i=(*i).post;
+    }
     
     return 0;
 }

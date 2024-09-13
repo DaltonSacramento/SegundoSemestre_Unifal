@@ -4,62 +4,48 @@
 typedef struct no{
     int chave;
     int valor;
-    struct no *prox;//Ponteiro de no numa struct no
+    struct no *post;//Ponteiro de no numa struct no
     struct no *ant;
 }no;
 
-/*Busca encadeada*//*
-no *buscaenc(int x, no *ptlista){
-    no *ptr=(*ptlista).prox;
-    //Condição se o vetor for nulo, *ptr=primeiro no
-    while(ptr!=NULL){
-        //Se ptr->chave < chavebuscada, ptr aponta para o prox no
-        if((*ptr).chave<x){
-            *ant=ptr;
-            ptr=(*ptr).prox;
+no *buscaListaDE(no *ptlista,int x){
+    no *ultimo=(*ptlista).ant;
+    if(ultimo != ptlista && x<=(*ultimo).chave){
+        no *pont=(*ptlista).post;
+        while((*pont).chave<x){
+            pont=(*pont).post;
         }
-        else{
-            //se ptr==x pont retorna o no buscado
-            if((*ptr).chave==x){
-                *pont=ptr;
-                return (*pont);
-            }
-            else break;
+        return pont;
+    }
+    return ptlista;
+}
+
+no *insereListaDE(no *ptlista, no *novo){
+    no *pont=buscaListaDE(ptlista,(*novo).chave);
+    if(pont==ptlista || (*pont).chave!=(*novo).chave){
+        no *anterior=(*pont).ant;
+        (*novo).post=pont;
+        (*novo).ant=(*pont).ant;
+        (*anterior).post=novo;
+        (*pont).ant=novo;
+        return NULL;
+    }
+    return pont;
+}
+
+no *removeListaDE(no *ptlista,int x){
+    no *exclude=NULL;
+    if((*ptlista).post!=NULL){
+        no *pont=buscaListaDE(ptlista,x);
+        if((*pont).chave==x){
+            exclude=pont;
+            no *anterior=(*pont).ant;
+            no *posterior=(*pont).post;
+            (*anterior).post=(*pont).post;
+            (*posterior).ant=(*pont).ant;
         }
-    }
-    return (*pont);
-}*/
 
-int insereenc(no *x, no *ptlista){
-    int insere1=-1;
-    (*x).prox=ptlista;
-    if(ptlista==NULL){
-        (*ptlista).ant=x;
     }
-    ptlista=x;
-    (*x).ant=NULL;
-    return insere1;
+    return exclude;
 }
 
-
-int removeenc(no *x, no *ptlista){
-    if((*x).ant!=NULL){
-        ((*x).ant).prox=(*x).prox;
-    }
-    else{
-        ptlista=(*x).prox;
-    }
-    if((*x).prox!=NULL){
-        ((*x).prox).ant=(*x).ant;
-    }
-    return 0;
-}
-
-void escrita(no *ptlista){
-    no *ptr = ptlista->prox;
-    while (ptr != NULL) {
-        printf(" %d", ptr->chave);
-        ptr = ptr->prox;
-    }
-    printf("\n");
-}
