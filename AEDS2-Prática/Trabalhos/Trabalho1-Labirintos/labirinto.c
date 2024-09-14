@@ -7,7 +7,7 @@ int main(){
     FILE *pontarq;
   
     //abrindo o arquivo
-    pontarq = fopen("labirinto1.txt", "r");
+    pontarq = fopen("labirinto2.txt", "r");
     
     if (pontarq == NULL) {
         perror("Erro ao abrir o arquivo");
@@ -16,35 +16,24 @@ int main(){
 
     char c[10][10];
     for (int i = 0; i < 10; i++) {
-        for (int y = 0; y <= 10; y++) {
+        for (int y = 0; y < 10; y++) {
             c[i][y] = getc(pontarq);
             // Verificar se chegou ao fim do arquivo
             if (c[i][y] == EOF) {
                 break;
             }
             // Exibe o caractere lido na tela
-            printf("%c", c[i][y]);  
+            printf("%c", c[i][y]); 
         }
     }
     printf("\n");
 
     char aux[10][10];
     for (int i = 0; i < 10; i++) {
-        for (int y = 0; y <= 10; y++) {
+        for (int y = 0; y < 10; y++) {
             aux[i][y] = c[i][y];
             // Verificar se chegou ao fim do arquivo
             if (c[i][y] == EOF) {
-                break;
-            }
-        }
-    }
-
-    char aux[10][10];
-    for (int i = 0; i < 10; i++) {
-        for (int y = 0; y <= 10; y++) {
-            
-
-            if (aux[i][y] == EOF) {
                 break;
             }
         }
