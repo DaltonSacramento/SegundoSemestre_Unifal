@@ -3,7 +3,6 @@ PROJ_NAME = labirinto
 
 # Arquivos .c e .h
 C_SOURCE = $(wildcard ./source/*.c)
-H_SOURCE = $(wildcard ./source/*.h)
 
 # Arquivos objeto
 OBJ = $(subst source,objects,$(C_SOURCE:.c=.o))
@@ -33,7 +32,7 @@ $(PROJ_NAME): $(OBJ)
 	@ echo ' '
 
 # Regra para compilar cada arquivo .c em um .o
-./objects/%.o: ./source/%.c ./source/%.h
+./objects/%.o: ./source/%.c
 	@ echo 'Compilando o target usando o GCC: $<'
 	$(CC) $(CC_FLAGS) $< -o $@
 	@ echo ' '
