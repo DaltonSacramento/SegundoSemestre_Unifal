@@ -1,7 +1,7 @@
 # Nome do projeto
 PROJ_NAME = labirinto
 
-# Arquivos .c e .h
+# Arquivos .c
 C_SOURCE = $(wildcard ./source/*.c)
 
 # Arquivos objeto
