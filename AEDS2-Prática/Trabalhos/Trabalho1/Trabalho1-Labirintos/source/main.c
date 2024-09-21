@@ -5,7 +5,7 @@
 #define N 10
 #define M 10
 
-// Estrutura para a topoP
+// Estrutura para a pilha
 typedef struct no{
     int x;
     int y;
@@ -17,7 +17,7 @@ typedef struct pos{
     char argumento;
 }pos;
 
-// Função para imprimir a topoP
+// Função para imprimir a pilha
 void escritaPilha(no *topoP) {
     no *aux=topoP;
     while (aux!=NULL) {
@@ -26,13 +26,13 @@ void escritaPilha(no *topoP) {
     }
 }
 
-// Função para adicionar um nó no final da topoP
+// Função para adicionar um nó no final da pilha
 void insertionPilha(no **topo, no *novo) {
     (*novo).prox=(*topo);
     (*topo)=novo;
 }
 
-//Tranferencia da pilha principal para uma pilha de exibição do caminho
+//Tranferencia da pilha principal para uma pilha de exibição do caminho encontrado
 void transferenciadepilha(no **topoP2, no *topoP){
     no *aux=topoP;
     while (aux!=NULL){
@@ -44,7 +44,7 @@ void transferenciadepilha(no **topoP2, no *topoP){
     }
 }
 
-// Função para remover o último nó da topoP
+// Função para remover o último nó da pilha
 void removePilha(no **topo) {
     if((*topo)!=NULL){
         (*topo)=(*(*topo)).prox;
@@ -58,6 +58,7 @@ void encontrarSaida(no **topoP, pos lab[N][M], int *retorno) {
     int x=(*aux).x;
     int y=(*aux).y;
 
+    //Verificação se a coordenada atual é a saída
     if (lab[x][y].argumento=='S') {
         no *novoS=malloc(sizeof(no));
         (*novoS).x=x+1;
@@ -146,7 +147,7 @@ void leituramatriz(pos lab[N][M], FILE *pontarq) {
     }
 }
 
-/*Função para encontrar as coordenadas da entrada*/
+//Função para encontrar as coordenadas da entrada
 void entrada(pos lab[N][M], no *novo){
     for (int i=0; i<N; i++) {
         for (int j=0; j<M; j++) {
