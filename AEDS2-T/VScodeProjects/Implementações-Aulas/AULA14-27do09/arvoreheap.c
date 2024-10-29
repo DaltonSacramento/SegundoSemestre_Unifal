@@ -39,12 +39,14 @@ void insercao(int k, int vetor[]){
     }
 }
 
+//Retorna o filho a esquerda do "nó k"
 int left(int k){
     int var;
     var=(2*k)+1;
     return var;
 }
 
+//Retorna o filho a direita do "nó k"
 int right(int k){
     int var;
     var=(2*k)+2;
