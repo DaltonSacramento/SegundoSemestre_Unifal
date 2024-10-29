@@ -52,14 +52,14 @@ typedef struct vet_{
 //     return no;
 // }
 
-// // Função para imprimir a árvore (pré-ordem)
-// void imprimir_arvore(node *raiz) {
-//     if (raiz != NULL) {
-//         printf("Chave: %d, Partilha (chave mediana): %d\n", raiz->chave, raiz->partilha);
-//         imprimir_arvore(raiz->esq);
-//         imprimir_arvore(raiz->dir);
-//     }
-// }
+// Função para imprimir a árvore (pré-ordem)
+void imprimir_arvore(node *raiz) {
+    if (raiz != NULL) {
+        printf("Chave: %d, Partilha (chave mediana): %d\n", raiz->valor, raiz->partilha);
+        imprimir_arvore(raiz->esq);
+        imprimir_arvore(raiz->dir);
+    }
+}
 
 node* construçao(node v[], int inf, int sup){
     node* raiz=malloc(sizeof(node));
@@ -90,11 +90,25 @@ node* construçao(node v[], int inf, int sup){
 }
 
 int main() {
-    vet V[] = { {1, 5}, {2, 3}, {3, 7}, {4, 1}, {5, 4} }; // Exemplo de vetor de chaves e frequências
+    node V[4];
+    V[0].valor=1;
+    V[0].freq=5;
+    V[1].valor=2;
+    V[1].freq=3;
+    V[2].valor=3;
+    V[2].freq=7;
+    V[3].valor=4;
+    V[3].freq=1;
+    V[4].valor=5;
+    V[4].freq=4;
+    // = { {1, 5}, {2, 3}, {3, 7}, {4, 1}, {5, 4} }; // Exemplo de vetor de chaves e frequências
     int n = sizeof(V) / sizeof(V[0]);
 
     // Constrói a árvore
-    node *raiz = construir(V, 0, n - 1);
+    node *raiz = malloc(sizeof(node));
+    raiz->dir=NULL;
+    raiz->esq=NULL;
+    raiz=construçao(V, 0, n-1);
 
     // Imprime a árvore
     printf("Árvore de partilha construída:\n");
