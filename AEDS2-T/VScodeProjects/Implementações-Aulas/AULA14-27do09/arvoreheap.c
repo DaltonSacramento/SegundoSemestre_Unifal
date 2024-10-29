@@ -5,18 +5,25 @@
 #define capacity 10
 int heap_size=0;
 
+//Encontra o índice do pai do valor do parâmetro(i)
 int parent(int i){
     int var;
     var=(i-1)/2;
     return var;
 }
 
+//Troca de valores
 void swap(int *vetor, int *vetor2){
     int aux = *vetor;
     *vetor = *vetor2;
     *vetor2 = aux;
 }
 
+//Insere um nó
+/*São sempre feitas inserção no final da árvore, da esquerda para a direita.
+Se o novo nó for menor que seu pai, troca-se a posição de um com o outro.
+Essa operação é feita recursivamente subindo na árvore.
+*/
 void insercao(int k, int vetor[]){
     if(heap_size==capacity){
         printf("\nOverflow:Could not insertkey");
@@ -81,7 +88,6 @@ int minimizar(int vetor[]){
 int main(){
 
     int vetor[capacity];
-
     int k;
 
 
@@ -96,11 +102,15 @@ int main(){
                 insercao(k,vetor);
                 break;
 
-            case 2:
+            case 2://Remoção
+                /*Remove sempre a raiz e a substitui pelo ultimo elemento do vetor,
+                se a nova raiz for maior que algum dos seus filhos, troca-se de lugar
+                com o menor deles
+                Essa operação é realizada recursivamente*/
                 minimizar(vetor);
                 break;
 
-            case 3:
+            case 3://Exibição
                 printf("\n");
                 for(int i=0;i<heap_size;i++){
                     printf(" %d", vetor[i]);
