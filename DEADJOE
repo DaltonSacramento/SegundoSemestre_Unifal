@@ -1,0 +1,31 @@
+
+*** These modified files were found in JOE when it aborted on Tue Oct 29 11:14:37 2024
+*** JOE was aborted by UNIX signal 1
+
+*** File '(Unnamed)'
+overwrite
+
+*** File '(Unnamed)'
+root
+root
+
+*** File '(Unnamed)'
+/home/2024.1.08.005/Documents/SegundoSemestre_Unifal/.git/COMMIT_EDITMSG
+
+*** File '/home/2024.1.08.005/Documents/SegundoSemestre_Unifal/.git/COMMIT_EDITMSG'
+merge e quick sort
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch main
+# Your branch is up to date with 'origin/main'.
+#
+# Changes to be committed:
+#	modified:   "AEDS2-T/VScodeProjects/Implementa\303\247\303\265es-Aulas/AULA14-27do09/output/arvoreheap"
+#
+
+*** File '* Startup Log *'
+Processing '/etc/joe/editorrc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/editorrc
