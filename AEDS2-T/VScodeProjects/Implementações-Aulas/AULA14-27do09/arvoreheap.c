@@ -99,7 +99,16 @@ int main(){
             case 2:
                 minimizar(vetor);
                 break;
+
+            case 3:
+                printf("\n");
+                for(int i=0;i<heap_size;i++){
+                    printf(" %d", vetor[i]);
+                }
+                printf("\n");
+                break;
         }
+
     }while(opçao!=0);
 
 
