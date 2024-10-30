@@ -52,15 +52,6 @@ noArvore *buscaPai(noArvore *raiz, noArvore *n){
 
 
 noArvore *removeRaiz(noArvore *n) {
-    if (n == NULL) {
-        return NULL;
-    }
-    
-    // Caso 1: nó folha
-    if (n->esq == NULL && n->dir == NULL) {
-        free(n);
-        return NULL;
-    }
 
     // Caso 2: nó só tem filho direito
     if (n->esq == NULL) {
@@ -196,10 +187,14 @@ int main(){
                     printf("\nRetornado: %d", (*retornado).valor);
                 }
                 break;
+
+            case 4:
+                preordem(raiz);
+                break;
         }
     }while(x!=0);
 
-    preordem(raiz);
+    
 
     return 0;
 }

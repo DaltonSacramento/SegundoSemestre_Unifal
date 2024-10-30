@@ -1,113 +1,79 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef struct noArvore_ noArvore;
-struct noArvore_{
+typedef struct noArvore_{
     int valor;
-    noArvore *esq;
-    noArvore *dir;
-};
+    struct noArvore_ *esq;
+    struct noArvore_ *dir;
+}noArvore;
 
-noArvore *insere(noArvore **raiz, noArvore *n){
-    if((*raiz)==NULL) return n;
-    if((*(*raiz)).valor > (*n).valor){
-        (*(*raiz)).esq=insere(&(*(*raiz)).esq,n);
-    }
-    else{
-        (*(*raiz)).dir=insere(&(*(*raiz)).dir,n);
-    }
-    return (*raiz);
-}
-
-noArvore *busca(noArvore *raiz, int k){
-    if(raiz==NULL || (*raiz).valor==k){
+noArvore *busca(noArvore* raiz, int k){
+    if(raiz==NULL || raiz->valor == k)
         return raiz;
-    }
-    if((*raiz).valor > k){
-        return busca((*raiz).esq,k);
-    }
-    else{
-        return busca((*raiz).dir,k);
-    }
+    if(raiz->valor > k)
+        return busca(raiz->esq,k);
+    else
+        return busca(raiz->dir,k);
 }
-noArvore *min(noArvore *raiz){
-    while((*raiz).esq!=NULL){
-        raiz=(*raiz).esq;
-    }
+
+noArvore* insere(noArvore *raiz, noArvore *n){
+    if(raiz==NULL) return n;
+    if(raiz->valor > n->valor)
+        raiz->esq = insere(raiz->esq,n);
+    else
+        raiz->dir = insere(raiz->dir,n); 
     return raiz;
 }
 
-noArvore *buscaPai(noArvore *raiz, noArvore *n){
-    if(raiz==NULL || (*raiz).esq==n || (*raiz).dir==n){
+noArvore* buscaPai(noArvore *raiz, noArvore* n){
+    if(raiz==NULL || raiz->esq==n || raiz->dir==n)
         return raiz;
-    }
-    if((*raiz).valor > (*n).valor){
-        return buscaPai((*raiz).esq,n);
-    }
-    else{
-        return buscaPai((*raiz).dir,n);
-    }
+    if(raiz->valor > n->valor)
+        return buscaPai(raiz->esq,n);
+    else
+        return buscaPai(raiz->dir,n);
 }
 
-
-
-noArvore *removeRaiz(noArvore *n) {
-
-    // Caso 2: nó só tem filho direito
-    if (n->esq == NULL) {
+noArvore* removeRaiz(noArvore* n){
+    if(n->esq==NULL){
         noArvore *temp = n->dir;
         free(n);
         return temp;
     }
-    
-    // Caso 3: nó só tem filho esquerdo
-    if (n->dir == NULL) {
+    if(n->dir==NULL){
         noArvore *temp = n->esq;
         free(n);
         return temp;
     }
-
-    // Caso 4: nó tem dois filhos
-    // Encontra o sucessor (menor valor da subárvore direita)
-    noArvore *paiSucessor = n;
-    noArvore *sucessor = n->esq;
-    
-    // Encontra o sucessor (continua indo para esquerda)
-    while (sucessor->dir != NULL) {
-        paiSucessor = sucessor;
-        sucessor = sucessor->dir;
+    noArvore* paiSucessor=n;
+    noArvore* sucessor=n->esq;//o sucessor começa como o filho a esquerda do nó a ser removido
+    while(sucessor->dir!=NULL){//Caminhamento para achar o maior nó da esq
+        paiSucessor=sucessor;
+        sucessor=sucessor->dir;
     }
-
-    // Copia o valor do sucessor para o nó atual
-    n->valor = sucessor->valor;
-
-    // Remove o sucessor
-    if (paiSucessor == n) {
-        // Se o sucessor é filho direto do nó a ser removido
-        paiSucessor->esq = sucessor->esq;
-    } else {
-        // Se o sucessor está mais profundo na árvore
-        paiSucessor->dir = sucessor->esq;
+    n->valor = sucessor->valor;//n precisa obter o valor do sucessor para ser retornado
+    if(paiSucessor==n){
+        paiSucessor->esq=sucessor->esq;
     }
+    else
+        paiSucessor->dir=sucessor->esq;
 
     free(sucessor);
-    return n;
+    return n;//Retorna o n, que obteve o valor do sucessor
 }
 
-noArvore *removeNo(noArvore *raiz, int valor){
-    noArvore *n=busca(raiz,valor);
+noArvore* removeNo(noArvore* raiz, int k){
+    noArvore* n = busca(raiz,k);
     if(n!=NULL){
-        noArvore *pai=buscaPai(raiz,n);
+        noArvore* pai = buscaPai(raiz,n);
         if(pai!=NULL){
-            if((*pai).dir==n){
-                (*pai).dir=removeRaiz(n);
-            }
-            else{
-                (*pai).esq=removeRaiz(n);
-            }
+            if(pai->valor > n->valor)
+                pai->esq = removeRaiz(n);
+            else
+                pai->dir = removeRaiz(n);
         }
         else{
-            raiz=removeRaiz(n);
+            raiz = removeRaiz(n);
         }
     }
     return raiz;
@@ -115,17 +81,6 @@ noArvore *removeNo(noArvore *raiz, int valor){
 
 void visita(noArvore *raiz){
     printf(" %d", (*raiz).valor);
-}
-void emordem(noArvore *raiz){
-    if(raiz!=NULL){
-        if((*raiz).esq!=NULL){
-            emordem((*raiz).esq);
-        }
-        visita(raiz);
-        if((*raiz).dir!=NULL){
-            emordem((*raiz).dir);
-        }
-    }
 }
 void preordem(noArvore *raiz){
     if(raiz!=NULL){
@@ -136,17 +91,6 @@ void preordem(noArvore *raiz){
         if((*raiz).dir!=NULL){
             preordem((*raiz).dir);
         }
-    }
-}
-void posordem(noArvore *raiz){
-    if(raiz!=NULL){
-        if((*raiz).esq!=NULL){
-            posordem((*raiz).esq);
-        }
-        if((*raiz).dir!=NULL){
-            posordem((*raiz).dir);
-        }
-        visita(raiz);
     }
 }
 
@@ -165,7 +109,7 @@ int main(){
                 (*n).dir=NULL;
                 printf("\nDigite o valor do novo no: ");
                 scanf("%d", &(*n).valor);
-                raiz=insere(&raiz,n);
+                raiz=insere(raiz,n);
                 break;
 
             case 2:
@@ -193,8 +137,6 @@ int main(){
                 break;
         }
     }while(x!=0);
-
-    
 
     return 0;
 }
