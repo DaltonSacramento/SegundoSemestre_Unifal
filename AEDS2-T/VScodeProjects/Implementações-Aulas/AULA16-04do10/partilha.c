@@ -9,48 +9,6 @@ typedef struct node_{
     int freq;
 }node;
 
-typedef struct vet_{
-    int chave;
-    int freq;
-}vet;
-
-// node *construirss(vet V[], int m, int n){
-//     node *no=malloc(sizeof(node));
-//     if(m==n){
-//         return NULL;
-//     }else{
-//         int y, s;
-//         y=V[m].freq;
-//         s=m/2;
-//         no->chave=y;
-//         no->partilha=s;
-//         no->esq=construirss(V,s,n);
-//         no->dir=construirss(V,n,s);
-//     }
-//     return no;
-// }
-
-// node *construir(vet V[], int m, int n) {
-//     // Verifica se o intervalo é válido
-//     if (m > n) {
-//         return NULL;
-//     }
-
-//     // Calcula o ponto de partição (meio do intervalo)
-//     int s = (m + n) / 2;
-
-//     // Aloca um novo nó
-//     node *no = (node *)malloc(sizeof(node));
-
-//     // Inicializa o nó:
-//     no->chave = V[s].chave;      // A chave do nó é a chave do vetor na posição s
-//     no->partilha = V[((m+n)-1)/2].chave;   // O campo partilha agora armazena a chave do elemento mediano
-
-//     // Chama recursivamente para construir as subárvores
-//     no->esq = construir(V, m, s - 1); // Subárvore esquerda: elementos menores que a partição
-//     no->dir = construir(V, s + 1, n); // Subárvore direita: elementos maiores que a partição
-//     return no;
-// }
 
 // Função para imprimir a árvore (pré-ordem)
 void imprimir_arvore(node *raiz) {
@@ -62,57 +20,85 @@ void imprimir_arvore(node *raiz) {
 }
 
 node* construçao(node v[], int inf, int sup){
-    node* raiz=malloc(sizeof(node));
-    if(inf!=sup){
-        int max=inf;
-        for(int i=inf;i<=sup;i++){
-            if(v[i].freq>v[max].freq){
-                max=i;
+    node* raiz=NULL;
+    if (inf <= sup) {
+        int max = inf;
+        for (int i = inf + 1; i <= sup; i++) {
+            if (v[i].freq > v[max].freq) {
+                max = i;
             }
         }
-        raiz->valor=v[max].valor;
-        for(int i=max;i<sup;i++){
-            v[i]=v[i+1];
+
+        raiz = malloc(sizeof(node));
+        raiz->valor = v[max].valor;
+        raiz->freq = v[max].freq;
+
+        // Ajuste do vetor: desloca os elementos para preencher o espaço do elemento removido
+        for (int i = max; i < sup; i++) {
+            v[i] = v[i + 1];
         }
         sup--;
-        int mid=(inf+sup)/2;
-        raiz->partilha=v[mid].valor;
-        raiz->esq=construçao(v,inf,mid);
-        raiz->dir=construçao(v,mid+1,sup);
-    }
-    else{
-        raiz->valor=v[inf].valor;
-        raiz->partilha=-1;
-        raiz->esq=NULL;
-        raiz->dir=NULL;
+
+        int mid = (inf + sup) / 2;
+        if (inf <= sup) {
+            raiz->partilha = v[mid].valor;
+            raiz->esq = construçao(v, inf, mid);
+            raiz->dir = construçao(v, mid + 1, sup);
+        } else {
+            raiz->partilha = -1;
+            raiz->esq = NULL;
+            raiz->dir = NULL;
+        }
     }
     return raiz;
 }
 
+void visita(node *raiz){
+    printf("Chave: %d, Partilha (chave mediana): %d\n", raiz->valor, raiz->partilha);
+}
+void preordem(node *raiz){
+    if(raiz!=NULL){
+        visita(raiz);
+        if((*raiz).esq!=NULL){
+            preordem((*raiz).esq);
+        }
+        if((*raiz).dir!=NULL){
+            preordem((*raiz).dir);
+        }
+    }
+}
+
 int main() {
-    node V[4];
-    V[0].valor=1;
-    V[0].freq=5;
-    V[1].valor=2;
-    V[1].freq=3;
-    V[2].valor=3;
-    V[2].freq=7;
-    V[3].valor=4;
-    V[3].freq=1;
-    V[4].valor=5;
-    V[4].freq=4;
-    // = { {1, 5}, {2, 3}, {3, 7}, {4, 1}, {5, 4} }; // Exemplo de vetor de chaves e frequências
-    int n = sizeof(V) / sizeof(V[0]);
+    node V[15];
 
-    // Constrói a árvore
-    node *raiz = malloc(sizeof(node));
-    raiz->dir=NULL;
-    raiz->esq=NULL;
-    raiz=construçao(V, 0, n-1);
+    int x;
+    int i=0;
+    do{
+        printf("\nDigite a opção: ");
+        scanf("%d", &x);
+        switch(x){
+            case 1://Insere
+                int k;
+                printf("\nDigite o valor do novo no: ");
+                scanf("%d", &k);
+                V[i].valor=k;
+                printf("\nDigite a frequencia do novo no: ");
+                scanf("%d", &k);
+                V[i].freq=k;
+                i++;
+                break;
 
-    // Imprime a árvore
-    printf("Árvore de partilha construída:\n");
-    imprimir_arvore(raiz);
+            case 2:
+                // Constrói a árvore
+                node *raiz = construçao(V, 0, i-1);
+                // Imprime a árvore
+                printf("Árvore de partilha construída:\n");
+                //imprimir_arvore(raiz);
+                preordem(raiz);
+                break;
+        }
+    }while(x!=0);
 
+    
     return 0;
 }
