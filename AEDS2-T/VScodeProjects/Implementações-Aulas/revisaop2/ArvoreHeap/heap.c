@@ -1,93 +1,79 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <limits.h>
 
-#define capacity 10
-int heap_size=0;
+int capacity = 10;
+int heap_size = 0;
 
-//Encontra o índice do pai do valor do parâmetro(i)
 int parent(int i){
-    int var;
-    var=(i-1)/2;
-    return var;
+    int temp=(i-1)/2;
+    return temp;
 }
 
-//Troca de valores
-void swap(int *vetor, int *vetor2){
-    int aux = *vetor;
-    *vetor = *vetor2;
-    *vetor2 = aux;
+void swap(int *x, int *y){
+    int aux=*x;
+    *x=*y;
+    *y=aux;
 }
 
-//Insere um nó
-/*São sempre feitas inserção no final da árvore, da esquerda para a direita.
-Se o novo nó for menor que seu pai, troca-se a posição de um com o outro.
-Essa operação é feita recursivamente subindo na árvore.
-*/
-void insercao(int k, int vetor[]){
+void insere(int vetor[], int k){
     if(heap_size==capacity){
-        printf("\nOverflow:Could not insertkey");
         return;
     }
-    heap_size=heap_size+1;
-    int i=heap_size-1;
-    vetor[i]=k;
-    
+    int i=heap_size;
+    vetor[heap_size]=k;
+    heap_size++;
     while(i!=0 && vetor[parent(i)]>vetor[i]){
-        swap(&vetor[i],&vetor[parent(i)]);
+        swap(&vetor[parent(i)],&vetor[i]);
         i=parent(i);
     }
 }
 
-//Retorna o filho a esquerda do "nó k"
 int left(int k){
-    int var;
-    var=(2*k)+1;
-    return var;
+    int temp = (k*2)+1;
+    return temp;
 }
 
-//Retorna o filho a direita do "nó k"
 int right(int k){
-    int var;
-    var=(2*k)+2;
-    return var;
+    int temp = (k*2)+2;
+    return temp;
 }
 
 void remover(int k, int vetor[]){
-
-    int l=left(k);
-    int r=right(k);
-    int smallest=k;
+    int l = left(k);
+    int r = right(k);
+    int menor = k;
     if(l<heap_size && vetor[l]<vetor[k]){
-        smallest=l;
+        menor=l;
     }
-    if(r<heap_size && vetor[r]<vetor[smallest]){
-        smallest=r;
+    if(r<heap_size && vetor[r]<vetor[menor]){
+        menor=r;
     }
-    if(smallest!=k){
-        swap(&vetor[k],&vetor[smallest]);
-        remover(smallest,vetor);
+    if(menor!=k){
+        swap(&vetor[menor],&vetor[k]);
+        remover(menor,vetor);
     }
 }
 
 int minimizar(int vetor[]){
     if(heap_size<=0){
-        return INT_MAX;
+        return 0;
     }
     if(heap_size==1){
-        heap_size=heap_size-1;
-        return vetor[0];
+        heap_size--;
+        int temp=vetor[0];
+        vetor[0]=0;
+        return temp;
     }
-
     int root=vetor[0];
     vetor[0]=vetor[heap_size-1];
     heap_size--;
-    remover(0,vetor);
 
+    remover(0,vetor);
     return root;
 }
 
 int main(){
+
 
     int vetor[capacity];
     int k;
@@ -101,7 +87,7 @@ int main(){
             case 1:
                 printf("\nDigite o valor a inserir: ");
                 scanf("%d",&k);
-                insercao(k,vetor);
+                insere(vetor,k);
                 break;
 
             case 2://Remoção
@@ -122,7 +108,6 @@ int main(){
         }
 
     }while(opçao!=0);
-
 
     return 0;
 }
