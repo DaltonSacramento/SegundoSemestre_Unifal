@@ -20,7 +20,7 @@ void imprimir_arvore(node *raiz) {
 }
 
 node* construçao(node v[], int inf, int sup){
-    node* raiz=NULL;
+    node *raiz=NULL;
     if (inf <= sup) {
         int max = inf;
         for (int i = inf + 1; i <= sup; i++) {
