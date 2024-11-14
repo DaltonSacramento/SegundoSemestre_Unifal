@@ -2,22 +2,67 @@
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
+#include <stdbool.h>
 
-#define MAX_STRING 100
+//#define MAX_STRING 100
 
 typedef struct vetor_{
-    char nome[MAX_STRING];
-    char posicao[MAX_STRING];
-    char naturalidade[MAX_STRING];
-    char clube[MAX_STRING];
+    char nome[40];
+    char posicao[30];
+    char naturalidade[30];
+    char clube[30];
     int idade; 
 }vetor;
+
+void swapJogador(vetor* xp, vetor* yp){
+    vetor temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+
+void swap2(int* xp, int* yp){
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+
+void copiaVetor(vetor v1[], int Vc[]){
+    int aux2;
+    char *aux;
+    for (int j = 0; j < 10; j++) {
+        aux=v1[j].nome;
+        aux2=*aux;
+        Vc[j]=aux2;
+    }
+}
+
+void bubbleSort(vetor arr[], int n){
+    int i, j;
+    bool swapped;
+    int Vc[10];
+    //Cria
+    copiaVetor(arr,Vc);
+    for (i = 0; i < n - 1; i++) {
+        swapped = false;
+        for (j = 0; j < n - i - 1; j++) {      
+            if (Vc[j] > Vc[j + 1]) {
+                swapJogador(&arr[j], &arr[j + 1]);
+                swap2(&Vc[j], &Vc[j+1]);
+                swapped = true;
+            }
+        }
+
+        // Se não houve a troca de elementos
+        if (!swapped)
+            break;
+    }
+}
 
 
 double ord_simples(int instancia_num, FILE *pontarq) {
     double tempo = 0;
     clock_t begin = clock();
-    vetor v[2];
+    vetor v[1150];
 
     char line[256]; //buffer do fgets
     char *token;
@@ -27,25 +72,31 @@ double ord_simples(int instancia_num, FILE *pontarq) {
     fgets(line, sizeof(line), pontarq);
 
     int i=0;
+    int k;
     while (fgets(line, sizeof(line), pontarq) != NULL) {
         // Dividindo a linha com strtok (delimitador vírgula)
-        char *token = strtok(line, ",");
-        int k = 0;
+        token = strtok(line, ",");
+        k = 0;
 
         // Armazenando os tokens no vetor de ponteiros
         while (token != NULL && k < 5) {
             tokens[k++] = token;
             token = strtok(NULL, ",");
         }
-
         // Atribuindo os tokens à estrutura v[0]
-        snprintf(v[i].nome, MAX_STRING, "%s", tokens[0]);
-        snprintf(v[i].posicao, MAX_STRING, "%s", tokens[1]);
-        snprintf(v[i].naturalidade, MAX_STRING, "%s", tokens[2]);
-        snprintf(v[i].clube, MAX_STRING, "%s", tokens[3]);
+        //snprintf(v[i].nome, 40, "%s", tokens[0]);
+        strcpy(v[i].nome, tokens[0]);
+        strcpy(v[i].posicao, tokens[1]);
+        strcpy(v[i].naturalidade, tokens[2]);
+        strcpy(v[i].clube, tokens[3]);
         v[i].idade = atoi(tokens[4]);  // Convertendo a idade de string para inteiro
+        i++;
     }
-    printf("%s,%s,%s,%s,%d\n", v[0].nome, v[0].posicao, v[0].naturalidade, v[0].clube, v[0].idade);
+
+    bubbleSort(v,10);
+    for(int k=0; k<10; k++){
+        printf("%s,%s,%s,%s,%d\n", v[k].nome, v[k].posicao, v[k].naturalidade, v[k].clube, v[k].idade);
+    }
 
     clock_t end = clock();
     // calcula o tempo decorrido encontrando a diferença (end - begin) e
@@ -92,7 +143,7 @@ int main(){
     //     return(0);
     // }
 
-    FILE* pontarq = fopen("jogadores.csv", "r");
+    FILE* pontarq = fopen("jogador.csv", "r");
 
     if (pontarq == NULL) {
         printf("Erro ao abrir o arquivo.\n");
