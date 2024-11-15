@@ -20,7 +20,7 @@ void swapJogador(vetor* xp, vetor* yp){
     *yp = temp;
 }
 
-void swap2(int* xp, int* yp){
+void swapVc(int* xp, int* yp){
     int temp = *xp;
     *xp = *yp;
     *yp = temp;
@@ -47,7 +47,7 @@ void bubbleSort(vetor arr[], int n){
         for (j = 0; j < n - i - 1; j++) {      
             if (Vc[j] > Vc[j + 1]) {
                 swapJogador(&arr[j], &arr[j + 1]);
-                swap2(&Vc[j], &Vc[j+1]);
+                swapVc(&Vc[j], &Vc[j+1]);
                 swapped = true;
             }
         }
