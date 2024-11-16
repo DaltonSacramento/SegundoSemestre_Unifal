@@ -1,8 +1,5 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <time.h>
-#include <string.h>
-#include <stdbool.h>
 #include "ordenaçoes.h"
 
 //#define MAX_STRING 100
@@ -36,6 +33,7 @@ int main(){
     tempo_ord_simples = ord_simples(pontarq);
     // double tempo_ord_otima = ord_otima(instancia_num);
     // double tempo_ord_linear = ord_tempolinear(instancia_num);
+    fclose(pontarq);//Fecha o arquivo de texto
 
     printf("Tempo: %f", tempo_ord_simples);
 

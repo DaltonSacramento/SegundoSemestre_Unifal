@@ -39,7 +39,7 @@ double ord_simples(FILE *pontarq) {
         i++;
     }
 
-    bubbleSort(v,10);
+    bubbleSort(v,i);
     for(int k=0; k<10; k++){
         printf("%s,%s,%s,%s,%d\n", v[k].nome, v[k].posicao, v[k].naturalidade, v[k].clube, v[k].idade);
     }

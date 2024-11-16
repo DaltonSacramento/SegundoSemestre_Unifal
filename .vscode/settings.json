@@ -3,6 +3,7 @@
         "random": "c",
         "stdio.h": "c",
         "time.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "ordenaçoes.h": "c"
     }
 }
