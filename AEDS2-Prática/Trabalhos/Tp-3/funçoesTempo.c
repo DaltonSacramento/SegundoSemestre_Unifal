@@ -55,7 +55,7 @@ double ord_otima(FILE *pontarq) {
     double tempo = 0;
     clock_t begin = clock();
 
-        vetor v[1150];
+    vetor v[1150];
     char line[256]; //buffer do fgets
     char *token;
     char *tokens[5];
@@ -83,6 +83,14 @@ double ord_otima(FILE *pontarq) {
         strcpy(v[i].clube, tokens[3]);
         v[i].idade = atoi(tokens[4]);  // Convertendo a idade de string para inteiro
         i++;
+    }
+    for(int k=0; k<10; k++){
+        printf("%s,%s,%s,%s,%d\n", v[k].nome, v[k].posicao, v[k].naturalidade, v[k].clube, v[k].idade);
+    }
+    mergeSort(v,0,i-1);
+    printf("\n");
+    for(int k=0; k<10; k++){
+        printf("%s,%s,%s,%s,%d\n", v[k].nome, v[k].posicao, v[k].naturalidade, v[k].clube, v[k].idade);
     }
 
     clock_t end = clock();

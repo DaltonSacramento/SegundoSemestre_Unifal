@@ -17,27 +17,27 @@ int main(int argc, char* argv[]){
             printf("Erro ao abrir o arquivo.\n");
             return(1);
         }
-        double tempo_ord_simples= ord_simples(pontarq);
+        double tempo_ord_simples = ord_simples(pontarq);
         fclose(pontarq);//Fecha o arquivo de texto
         printf("Tempo: %f", tempo_ord_simples);
     }
     if (instancia_num==2){
-        FILE* pontarq = fopen(caminho, "r");
-        if (pontarq == NULL) {
+        FILE* pontarq2 = fopen(caminho, "r");
+        if (pontarq2 == NULL) {
             printf("Erro ao abrir o arquivo.\n");
             return(1);
         }
-        double tempo_ord_otima = ord_otima(pontarq);
-        fclose(pontarq);//Fecha o arquivo de texto
+        double tempo_ord_otima = ord_otima(pontarq2);
+        fclose(pontarq2);//Fecha o arquivo de texto
     }
     if (instancia_num==3){
-        FILE* pontarq = fopen(caminho, "r");
-        if (pontarq == NULL) {
+        FILE* pontarq3 = fopen(caminho, "r");
+        if (pontarq3 == NULL) {
             printf("Erro ao abrir o arquivo.\n");
             return(1);
         }
-        double tempo_ord_tempolinear = ord_tempolinear(pontarq);
-        fclose(pontarq);//Fecha o arquivo de texto
+        double tempo_ord_tempolinear = ord_tempolinear(pontarq3);
+        fclose(pontarq3);//Fecha o arquivo de texto
     }
 
     

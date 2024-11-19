@@ -14,6 +14,8 @@ void swapJogador(vetor* xp, vetor* yp);
 void bubbleSort(vetor arr[], int n);
 double ord_simples(FILE *pontarq);
 
+void mergeSort(vetor arr[], int l, int r);
+void merge(vetor arr[], int l, int m, int r);
 double ord_otima(FILE *pontarq);
 
 double ord_tempolinear(FILE *pontarq);
