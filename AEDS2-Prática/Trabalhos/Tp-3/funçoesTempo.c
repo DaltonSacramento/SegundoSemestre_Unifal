@@ -9,10 +9,10 @@ double ord_simples(FILE *pontarq) {
     double tempo = 0;
     clock_t begin = clock();
     
-    vetor v[1150];
+    vetor v[1150];//Vetor com os campos da struct
     char line[256]; //buffer do fgets
     char *token;
-    char *tokens[5];
+    char *tokens[5];//Vetor de tokens para armazenar o campo de maneira formatada
 
     // Lendo uma linha do arquivo
     fgets(line, sizeof(line), pontarq);
@@ -55,10 +55,10 @@ double ord_otima(FILE *pontarq) {
     double tempo = 0;
     clock_t begin = clock();
 
-    vetor v[1150];
+    vetor v[1150];//Vetor com os campos da struct
     char line[256]; //buffer do fgets
     char *token;
-    char *tokens[5];
+    char *tokens[5];//Vetor de tokens para armazenar o campo de maneira formatada
 
     // Lendo uma linha do arquivo
     fgets(line, sizeof(line), pontarq);
@@ -84,9 +84,8 @@ double ord_otima(FILE *pontarq) {
         v[i].idade = atoi(tokens[4]);  // Convertendo a idade de string para inteiro
         i++;
     }
-    for(int k=0; k<10; k++){
-        printf("%s,%s,%s,%s,%d\n", v[k].nome, v[k].posicao, v[k].naturalidade, v[k].clube, v[k].idade);
-    }
+
+    //Função de ordenação
     mergeSort(v,0,i-1);
     printf("\n");
     for(int k=0; k<10; k++){
@@ -104,10 +103,10 @@ double ord_tempolinear(FILE *pontarq) {
     double tempo = 0;
     clock_t begin = clock();
 
-        vetor v[1150];
+    vetor v[1150];//Vetor com os campos da struct
     char line[256]; //buffer do fgets
     char *token;
-    char *tokens[5];
+    char *tokens[5];//Vetor de tokens para armazenar o campo de maneira formatada
 
     // Lendo uma linha do arquivo
     fgets(line, sizeof(line), pontarq);
