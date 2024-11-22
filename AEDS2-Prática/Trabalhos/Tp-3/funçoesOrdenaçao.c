@@ -5,6 +5,20 @@
 #include <stdbool.h>
 #include "ordenaçoes.h"
 
+void removeAcentos(char *str) {
+    char *acentuados = "áàâãäéèêëíìîïóòôõöúùûüçÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇ";
+    char *semAcento = "aaaaaeeeeiiiiooooouuuucAAAAAEEEEIIIIOOOOOUUUUC";
+    
+    for (int i = 0; str[i] != '\0'; i++) {
+        for (int j = 0; acentuados[j] != '\0'; j++) {
+            if (str[i] == acentuados[j]) {
+                str[i] = semAcento[j];
+                break;
+            }
+        }
+    }
+}
+
 //Função para troca de dois itens
 void swapJogador(vetor* xp, vetor* yp){
     vetor temp = *xp;
@@ -15,9 +29,12 @@ void swapJogador(vetor* xp, vetor* yp){
 void bubbleSort(vetor arr[], int n){
     int i, j;//Indices
     bool swapped;//Variável booleana
+    char aux, aux2;
     for (i = 0; i < n - 1; i++) {//Repetição para percorrer o vetor
         swapped = false;
-        for (j = 0; j < n - i - 1; j++) {  //Repetição para ordenar o vetor "i" vezes    
+        for (j = 0; j < n - i - 1; j++) {  //Repetição para ordenar o vetor "i" vezes
+            //removeAcentos(arr[j].nome);
+            //removeAcentos(arr[j].nome);
             if (arr[j].nome[0] > arr[j + 1].nome[0]){
                 swapJogador(&arr[j], &arr[j + 1]);
                 swapped = true;
