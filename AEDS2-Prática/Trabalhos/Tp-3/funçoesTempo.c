@@ -5,10 +5,11 @@
 #include <stdbool.h>
 #include "ordenaçoes.h"
 
-double ord_simples(FILE *pontarq) {
+double ord_simples(FILE *pontarq, unsigned long int *MT, int *NOC, int *NOT) {
     double tempo = 0;
     clock_t begin = clock();
     
+
     vetor v[1150];//Vetor com os campos da struct
     char line[256]; //buffer do fgets
     char *token;
@@ -20,6 +21,7 @@ double ord_simples(FILE *pontarq) {
     int i=0;
     int k;
     while (fgets(line, sizeof(line), pontarq) != NULL) {
+        
         // Dividindo a linha com strtok (delimitador vírgula)
         token = strtok(line, ",");
         k = 0;
@@ -29,6 +31,7 @@ double ord_simples(FILE *pontarq) {
             tokens[k++] = token;
             token = strtok(NULL, ",");
         }
+
         // Atribuindo os tokens à estrutura v[0]
         //snprintf(v[i].nome, 40, "%s", tokens[0]);
         strcpy(v[i].nome, tokens[0]);
@@ -39,10 +42,11 @@ double ord_simples(FILE *pontarq) {
         i++;
     }
 
-    bubbleSort(v,i);
+    bubbleSort(v,i,MT,NOC,NOT);
     for(int k=0; k<10; k++){
         printf("%s,%s,%s,%s,%d\n", v[k].nome, v[k].posicao, v[k].naturalidade, v[k].clube, v[k].idade);
     }
+
 
     clock_t end = clock();
     // calcula o tempo decorrido encontrando a diferença (end - begin) e
@@ -51,9 +55,10 @@ double ord_simples(FILE *pontarq) {
     return (tempo);
 }
 
-double ord_otima(FILE *pontarq) {
+double ord_otima(FILE *pontarq, unsigned long int *MT, int *NOC, int *NOT) {
     double tempo = 0;
     clock_t begin = clock();
+
 
     vetor v[1150];//Vetor com os campos da struct
     char line[256]; //buffer do fgets
@@ -66,6 +71,7 @@ double ord_otima(FILE *pontarq) {
     int i=0;
     int k;
     while (fgets(line, sizeof(line), pontarq) != NULL) {
+
         // Dividindo a linha com strtok (delimitador vírgula)
         token = strtok(line, ",");
         k = 0;
@@ -75,6 +81,7 @@ double ord_otima(FILE *pontarq) {
             tokens[k++] = token;
             token = strtok(NULL, ",");
         }
+
         // Atribuindo os tokens à estrutura v[0]
         //snprintf(v[i].nome, 40, "%s", tokens[0]);
         strcpy(v[i].nome, tokens[0]);
@@ -86,11 +93,12 @@ double ord_otima(FILE *pontarq) {
     }
 
     //Função de ordenação
-    mergeSort(v,0,i-1);
+    mergeSort(v,0,i-1,MT,NOC,NOT);
     printf("\n");
     for(int k=0; k<10; k++){
         printf("%s,%s,%s,%s,%d\n", v[k].nome, v[k].posicao, v[k].naturalidade, v[k].clube, v[k].idade);
     }
+
 
     clock_t end = clock();
     // calcula o tempo decorrido encontrando a diferença (end - begin) e
@@ -99,7 +107,7 @@ double ord_otima(FILE *pontarq) {
     return (tempo);
 }
 
-double ord_tempolinear(FILE *pontarq) {
+double ord_tempolinear(FILE *pontarq, unsigned long int *MT, int *NOC, int *NOT) {
     double tempo = 0;
     clock_t begin = clock();
 
