@@ -10,6 +10,7 @@ int main(int argc, char* argv[]){
     // Constrói o caminho para o arquivo dentro da pasta "instancias"
     snprintf(caminho, sizeof(caminho), "jogadores/jogador.csv");
 
+    //Contadores
     unsigned long int MT;
     int NOC;
     int NOT;
