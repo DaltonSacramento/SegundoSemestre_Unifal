@@ -32,8 +32,7 @@ double ord_simples(FILE *pontarq, unsigned long int *MT, int *NOC, int *NOT) {
             token = strtok(NULL, ",");
         }
 
-        // Atribuindo os tokens à estrutura v[0]
-        //snprintf(v[i].nome, 40, "%s", tokens[0]);
+        // Atribuindo os tokens aos campos do vetor
         strcpy(v[i].nome, tokens[0]);
         strcpy(v[i].posicao, tokens[1]);
         strcpy(v[i].naturalidade, tokens[2]);
@@ -43,7 +42,8 @@ double ord_simples(FILE *pontarq, unsigned long int *MT, int *NOC, int *NOT) {
     }
 
     bubbleSort(v,i,MT,NOC,NOT);
-    for(int k=0; k<10; k++){
+    
+    for(int k=0; k<i; k++){
         printf("%s,%s,%s,%s,%d\n", v[k].nome, v[k].posicao, v[k].naturalidade, v[k].clube, v[k].idade);
     }
 
@@ -82,8 +82,7 @@ double ord_otima(FILE *pontarq, unsigned long int *MT, int *NOC, int *NOT) {
             token = strtok(NULL, ",");
         }
 
-        // Atribuindo os tokens à estrutura v[0]
-        //snprintf(v[i].nome, 40, "%s", tokens[0]);
+        // Atribuindo os tokens aos campos do vetor
         strcpy(v[i].nome, tokens[0]);
         strcpy(v[i].posicao, tokens[1]);
         strcpy(v[i].naturalidade, tokens[2]);
@@ -95,7 +94,8 @@ double ord_otima(FILE *pontarq, unsigned long int *MT, int *NOC, int *NOT) {
     //Função de ordenação
     mergeSort(v,0,i-1,MT,NOC,NOT);
     printf("\n");
-    for(int k=0; k<10; k++){
+    
+    for(int k=0; k<i; k++){
         printf("%s,%s,%s,%s,%d\n", v[k].nome, v[k].posicao, v[k].naturalidade, v[k].clube, v[k].idade);
     }
 
@@ -131,14 +131,21 @@ double ord_tempolinear(FILE *pontarq, unsigned long int *MT, int *NOC, int *NOT)
             tokens[k++] = token;
             token = strtok(NULL, ",");
         }
-        // Atribuindo os tokens à estrutura v[0]
-        //snprintf(v[i].nome, 40, "%s", tokens[0]);
+
+        // Atribuindo os tokens aos campos do vetor
         strcpy(v[i].nome, tokens[0]);
         strcpy(v[i].posicao, tokens[1]);
         strcpy(v[i].naturalidade, tokens[2]);
         strcpy(v[i].clube, tokens[3]);
         v[i].idade = atoi(tokens[4]);  // Convertendo a idade de string para inteiro
         i++;
+    }
+
+    radixxSort(v,i,MT,NOC,NOT);
+    printf("\n");
+    
+    for(int k=0; k<i; k++){
+        printf("%s,%s,%s,%s,%d\n", v[k].nome, v[k].posicao, v[k].naturalidade, v[k].clube, v[k].idade);
     }
 
     clock_t end = clock();
